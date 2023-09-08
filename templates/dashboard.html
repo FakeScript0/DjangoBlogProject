@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+  <div class="col-md-6 offset-md-3"><h3 style="margin-left:160px">Kontrol Paneli</h3>
+<p style="margin-left:163px">
+    Hoşgeldiniz,  <small> <b>{{request.user.username}}</b></small>
+</p>
+<hr>
+  </div>
+</div>
+
+
+<hr>
+<a class = "btn btn-primary" style ="margin-left:470px" href = "{% url 'article:addarticle' %}">Makale Ekle </a>
+<hr>
+{% if articles %}
+<table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Başlık</th>
+            <th scope="col">Yazar</th>
+            <th scope="col">Tarih</th>
+            <th scope="col">Güncelle</th>
+            <th scope="col">Sil</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for article in articles %}
+          <tr>
+            <th scope="row">{{article.id}}</th>
+            <td><a href="{% url 'article:detail' article.id %}">{{article.title}}</a></td>
+            <td>{{article.author.username}}</td>
+            <td>{{article.created_date}}</td>
+            <td><a href="{% url 'article:update' article.id %}" class = "btn btn-success">Güncelle</a></td>
+            <td><a href="{% url 'article:delete' article.id %}" class = "btn btn-danger">Sil</a> </td>
+              
+          </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+{% else %}
+
+<div class = "alert alert-danger">
+    Helem Bir Makaleniz Yoxdur
+
+</div>
+{% endif %}
+
+
+
+{% endblock body %}
+

@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+
+{% if articles %}
+<div class="container mt-5">
+<div class="col-md-10 offset-md-3"><h1 style="margin-left:250px">Makaleler</h1></div>
+        <hr>
+<form>
+<div class="row  d-flex justify-content-center align-items-center" style="margin-left:75px">
+
+    <div class="col-md-8">
+
+    <div class="search">
+        <i class="fa fa-search"></i>
+        <input type="text" class="form-control" name ="keyword" placeholder="Makaleyi Axtar...">
+        <button class="btn btn-primary" type="submit">Axtar</button>
+    </div>
+    
+    </div>
+ </form>   
+</div>
+
+</div>           
+{% for article in articles  %}
+<div class="container mt-5">
+        
+            <div class="row">
+            <div class="col-md-12 offset-md-3">
+                <div class="col-lg-8">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <a href="{% url 'article:detail' article.id %}"><h3 class="fw-bolder mb-1">{{article.title}}</h3></a>
+                            <hr>
+                            <!-- Post meta content-->
+                            <div class="text-muted fst-italic mb-2">by {{article.author}}</div>
+                            <hr>
+                            <div class="text-muted fst-italic mb-2">{{article.created_date}}</div>
+                            <hr>
+                            <!-- Post categories-->
+                            
+                        </header>
+                        <!-- Preview image figure-->
+                        
+                        {% if article.article_image %}
+                       <a href="{% url 'article:detail' article.id %}"> <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="..." /></a>
+                        
+                        
+                        {% endif %}
+                        <!-- Post content-->
+                        
+                            <p class="fs-5 mb-4">{{article.content|safe|truncatewords:25}}<a style ="float:right" href="{% url 'article:detail' article.id %}"><i>Devamini oxu</i></a></p>
+                            
+                            <hr>
+                    </article>
+                    </div>
+                </div>
+            </div>
+           
+            
+        </div>
+{% endfor %}
+{% else %}
+<div class="alert alert-danger">Makale Tapilmadi</div>
+{% endif %}
+{% endblock body %}
+

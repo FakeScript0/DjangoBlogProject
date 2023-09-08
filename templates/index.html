@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="jumbotron text-center">
+        <h2>Xos Geldiniz....</h2>
+        <p>Salam Seyfe Qurucusu Nijat.</p>
+</div>
+
+
+<p>
+        {% if request.user.is_authenticated %}
+                Giris Edilibdir, {{request.user.username}}
+        {% else %}
+                Giriş edilmeyibdi
+        {% endif %}
+
+</p>
+{% endblock body %}
